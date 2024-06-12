@@ -1,9 +1,9 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-function Form(){
+function GroundForm(){
 
     
     const{id}=useParams();
@@ -23,13 +23,20 @@ function Form(){
     console.log(getById?.data)
 
     const {register,handleSubmit}=useForm({
-        values:{...getById?.data,groundImage:getById?.data?.image}
+        values:id?{...getById?.data,groundImage:getById?.data.image}:{}
     });
+
+    const navigate=useNavigate();
 
     const apiCall=useMutation({
         mutationKey:["GROUND_SAVE_API"],
         mutationFn(requestBody:any){
+            if(requestBody?.id){
+                return axios.put("http://localhost:8080/futsal/update",requestBody)
+            }
             return axios.post("http://localhost:8080/futsal/save",requestBody)
+        },onSuccess(){
+            navigate("/ground")
         }
     })
 
@@ -58,4 +65,4 @@ function Form(){
                     </form>
     </>)
 }
-export default Form;
+export default GroundForm;

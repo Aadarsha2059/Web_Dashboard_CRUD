@@ -1,8 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Index(){
+function Ground(){
 
     const navigate=useNavigate();
 
@@ -14,6 +14,15 @@ function Index(){
             }
         }
     )
+
+    const deleteApi=useMutation({
+        mutationKey:["DELETE_GROUND_API"],
+        mutationFn(id:number){
+            return axios.delete("http://localhost:8080/futsal/delete/"+id);
+        },onSuccess(){
+            getApiCall.refetch();
+        }
+    })
 
     return (<>
     this is ground list page
@@ -35,7 +44,7 @@ function Index(){
                 <td>{i?.image}</td>
                 <td>
                     <button onClick={()=>navigate("/ground/edit/"+i?.id)}>Edit</button> | 
-                    <button>Delete</button>
+                    <button onClick={()=>deleteApi.mutate(i?.id)}>Delete</button>
                 </td>
             </tr>
              ))}
@@ -46,4 +55,4 @@ function Index(){
     </>)
 }
 
-export default Index;
+export default Ground;
