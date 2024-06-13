@@ -36,7 +36,7 @@ function GroundForm(){
             }
             return axios.post("http://localhost:8080/futsal/save",requestBody)
         },onSuccess(){
-            navigate("/ground")
+            navigate("/admin/ground")
         }
     })
 

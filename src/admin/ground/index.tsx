@@ -26,7 +26,7 @@ function Ground(){
 
     return (<>
     this is ground list page
-    <button onClick={()=>navigate("/ground/add")}>Add Ground</button>
+    <button onClick={()=>navigate("/admin/ground/add")}>Add Ground</button>
 
     <table>
         <thead>
@@ -43,7 +43,7 @@ function Ground(){
                 <td>{i?.groundName}</td>
                 <td>{i?.image}</td>
                 <td>
-                    <button onClick={()=>navigate("/ground/edit/"+i?.id)}>Edit</button> | 
+                    <button onClick={()=>navigate("/admin/ground/edit/"+i?.id)}>Edit</button> | 
                     <button onClick={()=>deleteApi.mutate(i?.id)}>Delete</button>
                 </td>
             </tr>
